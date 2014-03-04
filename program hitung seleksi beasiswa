@@ -1,0 +1,123 @@
+#include <stdio.h>
+#include <conio.h>
+#include <windows.h>
+#include <stdlib.h>
+
+
+/*PROGRAM FUNGSI GOTOXY DI DEV C*/
+void gotoxy(int x, int y)
+{
+	COORD coord;
+	coord.X=x;
+	coord.Y=y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
+}
+
+	char* grade(float n);
+	char* ket(float k);
+	
+main ()
+{
+	int a, jumlah;
+	char nama_op[10];
+	struct
+	{
+		char nama_peserta[15];
+		
+	} mhs [10];
+	
+	struct
+	{
+		float tpa, psiko, wawan;
+		float total;
+	} nilai[10];
+	
+	
+	
+	system ("cls");
+	
+	printf("PROGRAM HITUNG SELEKSI PENERIMAAN BEASISWA\n");
+	printf("PT. MAJU BERSAMA\n");
+	
+	printf("Masukkan Nama Operator    : "); scanf("%s",&nama_op);
+	printf("Masukkan Jumlah Peserta   : "); scanf("%d",&jumlah);
+	printf("\n");
+	
+	for (a=1; a<=jumlah; a++)
+	{
+	printf("Peserta Ke - : %d\n",a);
+	printf("Nama Peserta     : "); scanf ("%s",&mhs[a].nama_peserta);
+	printf("Nilai TPA        : "); scanf ("%f",&nilai[a].tpa);
+	printf("Nilai Psikotest  : "); scanf ("%f",&nilai[a].psiko);
+	printf("Nilai Wawancara  : "); scanf ("%f",&nilai[a].wawan);
+	printf("------------------------------------------------\n");
+	}
+	
+	
+	system ("cls");
+	
+	gotoxy(30,1);printf("PROGRAM HITUNG SELEKSI PENERIMAAN BEASISWA\n");
+	gotoxy(33,2);printf("PT. MAJU BERSAMA\n");
+	gotoxy(1,4);printf("Nama operator    : %s",&nama_op);
+	gotoxy(1,5);printf("------------------------------------------------------------------------------\n");
+	gotoxy(1,6);printf("No. Nama       Nilai      Nilai       Nilai        Total     Grade  Keterangan\n");
+	gotoxy(1,7);printf("    Peserta    TPA        Psikotest   Wawancara    Nilai         \n");
+	gotoxy(1,8);printf("------------------------------------------------------------------------------\n");
+	
+	for (a=1; a<=jumlah; a++)
+	{
+	nilai[a].total= 0.3 * nilai[a].tpa + 0.3 * nilai[a].psiko + 0.4 * nilai[a].wawan;
+	}
+
+	for (a=1; a<=jumlah; a++)
+	{
+		gotoxy(1,8+a);printf("%d",a);
+		gotoxy(5,8+a);printf("%s",mhs[a].nama_peserta);
+		gotoxy(16,8+a);printf("%2.1f",nilai[a].tpa);
+		gotoxy(27,8+a);printf("%2.1f",nilai[a].psiko);
+		gotoxy(39,8+a);printf("%2.1f",nilai[a].wawan);
+		gotoxy(51,8+a);printf("%2.1f",nilai[a].total);
+		gotoxy(62,8+a);printf("%s",grade(nilai[a].total));
+		gotoxy(69,8+a);printf("%s",ket(nilai[a].total));
+		
+	}
+}
+
+	char* grade (float n)
+	{
+		if (n>80)
+		{
+			return "A";
+		}
+		else if (n>70 && n<80)
+		{
+			return "B";
+		}
+		else if (n>56 && n<70)
+		{
+			return "C";
+		}
+		else if (n>46 && n<56)
+		{
+			return "D";
+		}
+		else if (n<46)
+		{
+		return "E";
+	    }
+	} 
+	
+	char* ket (float k)
+	{
+		if (k>70)
+		{
+			return "LULUS";
+		}
+		else if (k<70)
+		{
+			return "GAGAL";
+		}
+	}
+	
+	
+	
